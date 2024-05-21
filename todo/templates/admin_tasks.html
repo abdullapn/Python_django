@@ -1,0 +1,121 @@
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Total List</title>
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+    }
+
+    .container {
+      margin-top: 50px;
+    }
+
+    .panel-heading {
+      background-color: #007bff;
+      color: #fff;
+      padding: 15px;
+    }
+
+    .panel-title {
+      font-size: 24px;
+      text-align: center;
+    }
+
+    .table {
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .table th,
+    .table td {
+      vertical-align: middle;
+    }
+
+    .btn-xs {
+      padding: 5px 10px;
+      font-size: 12px;
+    }
+
+    .btn-primary {
+      background-color: #007bff;
+      border-color: #007bff;
+    }
+
+    .btn-danger {
+      background-color: #dc3545;
+      border-color: #dc3545;
+    }
+
+    .float {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 60px;
+      height: 60px;
+      background-color: #007bff;
+      color: #fff;
+      border-radius: 50%;
+      text-align: center;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+    }
+
+    .my-float {
+      margin-top: 20px;
+      font-size: 24px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h6 class="panel-title">Total Tasks</h6>
+    </div>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Tasks</th>
+          <th>Date</th>
+          <th>Update</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for p in tasks %}
+        {% if p %}
+        <tr>
+          <td>{{ p.name }}</td>
+          <td>{{ p.date }}</td>
+          <td><a class="btn btn-primary btn-xs" href="{% url 'update-tasks' p.id %}"><i class="fas fa-edit"></i></a></td>
+          <td><a class="btn btn-danger btn-xs" href="{% url 'delete-tasks' p.id %}"><i class="fas fa-trash-alt"></i></a></td>
+        </tr>
+        {% else %}
+        <tr>
+          <td colspan="4" class="text-center">No products</td>
+        </tr>
+        {% endif %}
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- add product floating button -->
+<a href="/admin-add-tasks" class="float">
+  <i class="fas fa-plus my-float"></i>
+</a>
+
+</body>
+</html>
+{% endblock content %}

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+{% load widget_tweaks %}
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title>Custom Signup Form</title>
+    <style media="screen">
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: sans-serif;
+            background: linear-gradient(to right, #0e376c, #d1842b);
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .box {
+            width: 500px;
+            padding: 40px;
+            background: rgb(255, 255, 255);
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(236, 176, 46, 0.779);
+            text-align: center;
+        }
+
+        .box h1 {
+            color: #070708;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+
+        .box p {
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .box input[type="text"],
+        .box input[type="password"],
+        .box input[type="submit"],
+        .box input[type="number"] {
+            border: 0;
+            background: none;
+            display: block;
+            margin: 20px auto;
+            text-align: center;
+            border: 2px solid #32ebd5;
+            padding: 10px 10px;
+            width: 250px;
+            outline: none;
+            color: #e17d7d;
+            border-radius: 24px;
+            transition: 0.25s;
+        }
+
+        .box input[type="text"]:focus,
+        .box input[type="password"]:focus,
+        .box input[type="number"]:focus {
+            width: 300px;
+            border-color: #2ecc71;
+        }
+
+        .box input[type="submit"] {
+            border-color: #ffffff;
+            color: #fff;
+            background-color: #3f0535;
+            cursor: pointer;
+            transition: background-color 0.25s;
+        }
+
+        .box input[type="submit"]:hover {
+            background-color: #3d063d;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="box">
+            <h1>SIGNUP</h1>
+            <p class="text-muted">Please enter details to create an account.</p>
+            <form method="post" enctype="multipart/form-data" id="signup-form" >
+                {% csrf_token %}
+                {% render_field userForm.first_name class="form-control" placeholder="First Name" %}
+                {% render_field userForm.last_name class="form-control" placeholder="Last Name" %}
+                {% render_field userForm.username class="form-control" placeholder="Username" %}
+                {% render_field userForm.password class="form-control" placeholder="Password" %}
+                {% render_field customerForm.address class="form-control" placeholder="Address" %}
+                <input type="number"  name="mobile" id="mobile" class="form-control" placeholder="Mobile" maxlength="10" minlength="10">
+                <small id="mobile-error" style="color: red; display: none;">Mobile number must contain exactly 10 digits.</small>
+                {% render_field customerForm.profile_pic class="form-control" placeholder="Profile pic" %}
+                <input type="submit" value="Create">
+            </form>
+        </div>
+    </div>
+</body>
+
+<script>
+    document.getElementById("signup-form").addEventListener("submit", function(event) {
+        var mobileInput = document.getElementById("mobile");
+        var errorText = document.getElementById("mobile-error");
+        if (!mobileInput.value.match(/^(\d{3})[- ]?(\d{3})[- ]?(\d{4})$/)) {
+            errorText.style.display = "block";
+            event.preventDefault(); // Prevent form submission
+        } else {
+            errorText.style.display = "none";
+        }
+    });
+</script>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+{% load widget_tweaks %}
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title>Custom Signup Form</title>
+    <style media="screen">
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: sans-serif;
+            background: linear-gradient(to right, #0e376c, #d1842b);
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .box {
+            width: 500px;
+            padding: 40px;
+            background: rgb(255, 255, 255);
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(236, 176, 46, 0.779);
+            text-align: center;
+        }
+
+        .box h1 {
+            color: #070708;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+
+        .box p {
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .box input[type="text"],
+        .box input[type="password"],
+        .box input[type="submit"],
+        .box input[type="number"] {
+            border: 0;
+            background: none;
+            display: block;
+            margin: 20px auto;
+            text-align: center;
+            border: 2px solid #32ebd5;
+            padding: 10px 10px;
+            width: 250px;
+            outline: none;
+            color: #e17d7d;
+            border-radius: 24px;
+            transition: 0.25s;
+        }
+
+        .box input[type="text"]:focus,
+        .box input[type="password"]:focus,
+        .box input[type="number"]:focus {
+            width: 300px;
+            border-color: #2ecc71;
+        }
+
+        .box input[type="submit"] {
+            border-color: #ffffff;
+            color: #fff;
+            background-color: #3f0535;
+            cursor: pointer;
+            transition: background-color 0.25s;
+        }
+
+        .box input[type="submit"]:hover {
+            background-color: #3d063d;
+        }
+    </style>
+</head>
+
+<body>
+       <div class="container">
+        <div class="row">
+            <div class="col-md-10">
+                <div class="card">
+                    <form class="box" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <h1>LOGIN</h1>
+                        {% render_field form.username class="form-control" placeholder="Username" %}
+                        {% render_field form.password class="form-control" placeholder="Password" %}
+                        <input type="submit" value="Login">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
